@@ -1,0 +1,105 @@
+.banner, .banner span, .banner div {
+    font-family: "Microsoft YaHei";
+    transform: all .3s;
+    -webkit-transition: all .3s;
+    transition-timing-function: linear;
+    -webkit-transition-timing-function: linear;
+}
+
+.banner {
+    perspective: 3000px;
+    position: relative;
+    z-index: 19;
+}
+.bg {
+    position: relative;
+    width: 1320px;
+    height: 520px;
+    margin: 30px auto;
+    // background: url("http://static.smartisanos.cn/index/img/store/home/banner-3d-item-1-box-1_61bdc2f4f9.png") center no-repeat;
+    background-size: 100% 100%;
+    border-radius: 16px;
+    // transform-style: preserve-3d;
+    // -webkit-transform-origin: 50% 50%;
+    // -webkit-transform: rotateY(0deg) rotateX(0deg);
+}
+.img {
+    display: block;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    bottom: 5px;
+    left: 0;
+    background: url("http://static.smartisanos.cn/index/img/store/home/banner-3d-item-1-box-3_8fa7866d59.png") center no-repeat;
+    background-size: 95% 100%;
+}
+
+.text {
+    position: absolute;
+    top: 18%;
+    right: 10%;
+    font-size: 32px;
+    color: #fff;
+    text-align: right;
+    font-weight: lighter;
+}
+
+.a {
+    -webkit-transform: translateZ(40px);
+}
+.b {
+    -webkit-transform: translateZ(20px);
+}
+
+.box {
+    overflow: hidden;
+    position: relative;
+    z-index: 0;
+    margin-top: 29px;
+    box-sizing: border-box;
+    border: 1px solid rgba(0, 0, 0, .14);
+    border-radius: 8px;
+    background: #fff;
+    box-shadow: 0 3px 8px -6px rgba(0, 0, 0, .1);
+}
+
+
+ul.box {
+    display: flex;
+    li {
+        flex: 1;
+        img {
+            display: block;
+            width: 305px;
+            height: 200px;
+        }
+    }
+}
+
+.mt30 {
+    margin-top: 30px;
+}
+
+.hot {
+    display: flex;
+    > div {
+        flex: 1;
+        width: 25%;
+    }
+}
+
+.floors {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    .imgbanner {
+        width: 50%;
+        height: 430px;
+    }
+    img {
+        display: block;
+        width: 100%;
+        height: 100%;
+    }
+}
