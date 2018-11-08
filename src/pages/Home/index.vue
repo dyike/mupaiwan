@@ -8,7 +8,7 @@
                 <span class="img a"></span>
                 <span class="text b">以傲慢与偏执<br/>回敬傲慢与偏见</span>
             </div> -->
-            <slide class="bg" :slides="slides" :inv="inv" :style="styleObject" :name="transitionName1" :target="target"></slide>
+            <slide class="bg" :slides="slides" :inv="inv" :name="transitionName1" :target="target"></slide>
         </div>
 
         <section class="w mt30 clearfix">

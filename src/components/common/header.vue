@@ -16,7 +16,7 @@
                         </div>
                         <div class="nav-aside" ref="aside" :class="{fixed:st}">
                             <div class="user pr">
-                                <router-link to="user">个人中心</router-link>
+                                <router-link to="/user">个人中心</router-link>
                                  <!-- 用户信息显示 -->
                                 <div class="nav-user-wrapper pa" v-if="login">
                                     <div class="nav-user-list">
@@ -42,9 +42,9 @@
                             </div>
 
                             <div class="shop pr" @mouseover="cartShowState(true)" @mouseout="cartShowState(false)" ref="positionMsg">
-                                <router-link to="cart"></router-link>
+                                <router-link to="/cart"></router-link>
                                 <span class="cart-num">
-                                    <i class="num" :class="{no:totalNum <= 0,move_in_cart:receiveInCart}">0</i>
+                                    <i class="num" :class="{no:totalNum <= 0,move_in_cart:receiveInCart}">{{totalNum}}</i>
                                 </span>
                                 <!-- 购物车显示块 -->
                                 <div class="nav-user-wrapper pa active" v-show="showCart">
@@ -56,22 +56,21 @@
                                                     <li class="clearfix" v-for="(item,i) in cartList" :key="i">
                                                         <div class="cart-item">
                                                             <div class="cart-item-inner">
-                                                                <router-link :to="'item?p='+item.id">
+                                                                <router-link :to="'item?p='+item.productId">
                                                                     <div class="item-thumb">
                                                                         <img :src="item.productImg">
                                                                     </div>
                                                                     <div class="item-desc">
                                                                         <div class="cart-cell">
-                                                                            <h4><a href="" v-text="item.name"></a></h4>
-                                                                            <p class="attrs"><span>白色</span></p>
+                                                                            <h4><a href="" v-text="item.productName"></a></h4>
                                                                             <h6><span class="price-icon">¥</span><span
-                                                                                class="price-num">{{item.price}}</span><span
-                                                                                class="item-num">x {{item.pNum}}</span>
+                                                                                class="price-num">{{item.salePrice}}</span><span
+                                                                                class="item-num">x {{item.productNum}}</span>
                                                                             </h6>
                                                                         </div>
                                                                     </div>
                                                                 </router-link>
-                                                                <div class="del-btn del" @click="delGoods(item.id)">删除</div>
+                                                                <div class="del-btn del" @click="delGoods(item.productId)">删除</div>
                                                             </div>
                                                         </div>
                                                     </li>
@@ -160,14 +159,14 @@
             totalNum() {
                 var totalNum = 0
                 // this.cartList && this.cardList.forEach(item => {
-                //     totalNum += (item.pNum)
+                //     totalNum += (item.productNum)
                 // })
                 return totalNum
             },
             totalPrice() {
                 var totalPrice = 0
                 this.cardList && this.cardList.forEach(item => {
-                    totalPrice += (item.pNum * item.price)
+                    totalPrice += (item.productNum * item.salePrice)
                 })
                 return totalPrice
             }
@@ -182,8 +181,8 @@
 
             // 登陆时获取一次购物车商品
             _getCartList () {
-                getCartList().then(res => {
-                    if (res.status === '1') {
+                getCartList({userId: getStore('userId')}).then(res => {
+                    if (res.success === true) {
                         setStore('buyCart', res.result)
                     }
                     // 重新初始化一次本地数据
@@ -191,7 +190,7 @@
             },
             delGoods(id) {
                 if (this.login) {
-                    cartDel({id}).then(res => {
+                    cartDel({userId: getStore('userId'), id}).then(res => {
                         this.EDIT_CART({id})
                     })
                 } else {

@@ -16,10 +16,10 @@
                     <m-button text="加入购物车"
                         style="margin: 0 5px"
                         classStyle="main-btn"
-                        @btnClick="addCart(msg.productId,msg.salePrice,msg.productName,msg.productImageBig)">
+                        @btnClick="addCart(msg.productId, msg.salePrice, msg.productName, msg.productImageBig)">
                     </m-button>
                 </div>
-                <p><span style="font-size: 16px">￥</span>{{msg.price}}</p>
+                <p><span style="font-size: 16px">￥</span>{{Number(msg.price).toFixed(2)}}</p>
             </div>
         </div>
     </div>
