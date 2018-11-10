@@ -129,114 +129,114 @@
 </template>
 
 <script>
-    import { loginOut } from '/api/index'
-    import MButton from '/components/button'
-    import { mapMutations, mapState } from 'vuex'
-    import { setStore, removeStore } from '/utils/storage'
-    import { getCartList, cartDel } from '/api/goods'
+import { loginOut } from '/api/index'
+import MButton from '/components/button'
+import { mapMutations, mapState } from 'vuex'
+import { setStore, getStore, removeStore } from '/utils/storage'
+import { getCartList, cartDel } from '/api/goods'
 
-    export default {
-        components: {
-            MButton
-        },
-        data () {
-            return {
-                user: {},
-                // 查询数据库的商品
-                st: true,
-                cartShow: false,
-                positionL: 0,
-                positionT: 0,
-                timerCartShow: null // 定时隐藏购物车
-            }
-        },
-
-        computed: {
-            ...mapState([
-                'cartList', 'login', 'receiveInCart', 'showCart', 'userInfo'
-            ]),
-            // 计算数量
-            totalNum() {
-                var totalNum = 0
-                // this.cartList && this.cardList.forEach(item => {
-                //     totalNum += (item.productNum)
-                // })
-                return totalNum
-            },
-            totalPrice() {
-                var totalPrice = 0
-                this.cardList && this.cardList.forEach(item => {
-                    totalPrice += (item.productNum * item.salePrice)
-                })
-                return totalPrice
-            }
-        },
-
-        methods: {
-            ...mapMutations(['ADD_CART', 'INIT_BUYCART', 'ADD_ANIMATION', 'SHOW_CART', 'REDUCE_CART', 'RECORD_USERINFO', 'EDIT_CART']),
-            // 显示购物车
-            cartShowState(state) {
-                this.SHOW_CART({showCart: state})
-            },
-
-            // 登陆时获取一次购物车商品
-            _getCartList () {
-                getCartList({userId: getStore('userId')}).then(res => {
-                    if (res.success === true) {
-                        setStore('buyCart', res.result)
-                    }
-                    // 重新初始化一次本地数据
-                }).then(this.INIT_BUYCART)
-            },
-            delGoods(id) {
-                if (this.login) {
-                    cartDel({userId: getStore('userId'), id}).then(res => {
-                        this.EDIT_CART({id})
-                    })
-                } else {
-                    this.EDIT_CART({id})
-                }
-            },
-            // 退出登录
-            _loginOut() {
-                loginOut().then(res => {
-                    removeStore('buyCart')
-                    window.location.href = '/'
-                })
-            },
-            toCart() {
-                this.$router.push({path: 'cart'})
-            },
-            // 控制顶部
-            navFixed() {
-                if (this.$route.path === '/goods' ||
-                    this.$route.path === '/home' ||
-                    this.$route.path == '/item' ||
-                    this.$route.path == '/about' ||
-                    this.$route.path == '/service') {
-                    var st = document.documentElement.scrollTop || document.body.scrollTop
-                    st >= 100 ? this.st = true : this.st = false
-                    // 计算小圆当前位置
-                    let num = document.querySelector('.num')
-                    this.positionL = num.getBoundingClientRect().left
-                    this.positionT = num.getBoundingClientRect().top
-                    this.ADD_ANIMATION({cartPositionL: this.positionL, cartPositionT: this.positionT})
-                } else {
-                    return
-                }
-            }
-        },
-        mounted() {
-            if (this.login) {
-                this._getCartList()
-            } else {
-                this.INIT_BUYCART()
-            }
-            this.navFixed()
-            window.addEventListener('scroll', this.navFixed)
-            window.addEventListener('resize', this.navFixed)
+export default {
+    components: {
+        MButton
+    },
+    data () {
+        return {
+            user: {},
+            // 查询数据库的商品
+            st: true,
+            cartShow: false,
+            positionL: 0,
+            positionT: 0,
+            timerCartShow: null // 定时隐藏购物车
         }
+    },
+
+    computed: {
+        ...mapState([
+            'cartList', 'login', 'receiveInCart', 'showCart', 'userInfo'
+        ]),
+        // 计算数量
+        totalNum() {
+            var totalNum = 0
+            this.cartList && this.cartList.forEach(item => {
+                totalNum += (item.productNum)
+            })
+            return totalNum
+        },
+        totalPrice() {
+            var totalPrice = 0
+            this.cardList && this.cardList.forEach(item => {
+                totalPrice += (item.productNum * item.salePrice)
+            })
+            return totalPrice
+        }
+    },
+
+    methods: {
+        ...mapMutations(['ADD_CART', 'INIT_BUYCART', 'ADD_ANIMATION', 'SHOW_CART', 'REDUCE_CART', 'RECORD_USERINFO', 'EDIT_CART']),
+        // 显示购物车
+        cartShowState(state) {
+            this.SHOW_CART({showCart: state})
+        },
+
+        // 登陆时获取一次购物车商品
+        _getCartList () {
+            getCartList({userId: getStore('userId')}).then(res => {
+                if (res.success === true) {
+                    setStore('buyCart', res.result)
+                }
+                // 重新初始化一次本地数据
+            }).then(this.INIT_BUYCART)
+        },
+        delGoods(productId) {
+            if (this.login) {
+                cartDel({userId: getStore('userId'), productId}).then(res => {
+                    this.EDIT_CART({productId})
+                })
+            } else {
+                this.EDIT_CART({productId})
+            }
+        },
+        // 退出登录
+        _loginOut() {
+            loginOut().then(res => {
+                removeStore('buyCart')
+                window.location.href = '/'
+            })
+        },
+        toCart() {
+            this.$router.push({path: '/cart'})
+        },
+        // 控制顶部
+        navFixed() {
+            if (this.$route.path === '/goods' ||
+                this.$route.path === '/home' ||
+                this.$route.path == '/item' ||
+                this.$route.path == '/about' ||
+                this.$route.path == '/service') {
+                var st = document.documentElement.scrollTop || document.body.scrollTop
+                st >= 100 ? this.st = true : this.st = false
+                // 计算小圆当前位置
+                let num = document.querySelector('.num')
+                this.positionL = num.getBoundingClientRect().left
+                this.positionT = num.getBoundingClientRect().top
+                this.ADD_ANIMATION({cartPositionL: this.positionL, cartPositionT: this.positionT})
+            } else {
+                return
+            }
+        }
+    },
+    mounted() {
+        if (this.login) {
+            this._getCartList()
+        } else {
+            this.INIT_BUYCART()
+        }
+        this.navFixed()
+        window.addEventListener('scroll', this.navFixed)
+        window.addEventListener('resize', this.navFixed)
     }
+}
 </script>
 
 <style lang="scss" rel="stylesheet/scss">

@@ -25,9 +25,19 @@ export const delCart = (params) => {
     // return http.fetchPost('/goods/delCart', params)
 }
 
+// 删除购物车勾选商品
+export const delCartChecked = (params) => {
+    // return http.fetchPost('/member/delCartChecked', params)
+}
+
 // 编辑购物车
 export const cartEdit = (params) => {
     return http.fetchPost('/users/cartEdit', params)
+}
+
+// 全选
+export const editCheckAll = (params) => {
+    // return http.fetchPost('/member/editCheckAll', params)
 }
 
 // 商品详情

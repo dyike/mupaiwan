@@ -7,7 +7,7 @@
         <div class="store-content page-cart">
             <div class="gray-box">
                 <div class="title"><h2>购物清单</h2></div>
-                <div >
+                <div v-if="cartList.length">
                     <div class="ui-cart">
                         <div>
                             <!-- 标题 -->
@@ -18,26 +18,30 @@
                                 <span class="num">数量</span>
                                 <span class="price1">单价</span>
                             </div>
-                            <div class="cart-table">
-                                <div class="cart-group divide pr">
+                            <!-- 列表 -->
+                            <div class="cart-table" v-for="(item,i) in cartList" :key="i">
+                                <div class="cart-group divide pr" :data-productid="item.productId">
                                     <div class="cart-top-items">
                                         <div class="cart-items clearfix">
                                             <!--勾选-->
                                             <div class="items-choose">
-                                                <span class="blue-checkbox-new "></span>
+                                                <span class="blue-checkbox-new"
+                                                :class="{'checkbox-on':item.checked === '1'}"
+                                                @click="editCart('check', item)"></span>
                                             </div>
                                             <!--图片-->
                                             <div class="items-thumb fl">
-                                                <img>
-                                                <a href="javascript:;" title="xxxxxxx" target="_blank"></a>
+                                                <img :alt="item.productName"
+                                                    :src="item.productImg">
+                                                <a @click="goodsDetails(item.productId)" :title="item.productName" target="_blank"></a>
                                             </div>
                                             <!--信息-->
                                             <div class="name hide-row fl">
                                                 <div class="name-table">
-                                                    <a href="javascript:;" title="item.productName" target="_blank"></a>
-                                                    <ul class="attribute">
-                                                        <li>白色</li>
-                                                    </ul>
+                                                    <a @click="goodsDetails(item.productId)" :title="item.productName" target="_blank"
+                             v-text="item.productName"></a>
+                                                        <!-- <li>白色</li> -->
+                                                    <!-- </ul> -->
                                                 </div>
                                             </div>
 
@@ -48,19 +52,21 @@
                                             <!--商品数量-->
                                             <div>
                                                 <!--总价格-->
-                                                <div class="subtotal" style="font-size: 14px">¥ 12</div>
+                                                <div class="subtotal" style="font-size: 14px">¥ {{item.salePrice * item.productNum}}</div>
                                                 <!--数量-->
-                                                <m-buynum
-                                                         style="height: 140px;
+                                                <m-buynum :num="item.productNum"
+                                                        :id="item.productId"
+                                                        :checked="item.checked"
+                                                        style="height: 140px;
                                                            display: flex;
                                                            align-items: center;
                                                            justify-content: center;"
-                                                         :limit="5"
-                                                         @edit-num="EditNum"
+                                                        :limit="5"
+                                                        @edit-num="EditNum"
                                                 >
                                                 </m-buynum>
                                                 <!--价格-->
-                                                <div class="price1">¥ 123</div>
+                                                <div class="price1">¥ {{item.salePrice}}</div>
                                             </div>
                                         </div>
                                     </div>
@@ -75,7 +81,7 @@
                                     <div class="choose-all">
                                         <span :class="{'checkbox-on':checkAllFlag}" class="blue-checkbox-new" @click="editCheckAll"></span>全选
                                     </div>
-                                    <div class="delete-choose-goods">删除选中的商品</div>
+                                    <div class="delete-choose-goods" @click="delChecked">删除选中的商品</div>
                                 </div>
                             </div>
                             <div class="shipping">
@@ -100,7 +106,7 @@
                     </div>
                 </div>
                 <!-- 没有商品 -->
-<!--                 <div style="padding: 50px">
+                <div style="padding: 50px">
                     <div class="cart-e"></div>
                     <p style="text-align: center;padding: 20px;color: #8d8d8d">您的购物车中还没有商品</p>
                     <div style="text-align: center">
@@ -108,7 +114,7 @@
                             <m-button text="现在选购" style="width: 150px;height: 40px;line-height: 38px;color: #8d8d8d"></m-button>
                         </router-link>
                     </div>
-                </div> -->
+                </div>
             </div>
         </div>
         <m-footer></m-footer>
