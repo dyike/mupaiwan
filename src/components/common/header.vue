@@ -165,7 +165,7 @@ export default {
         },
         totalPrice() {
             var totalPrice = 0
-            this.cardList && this.cardList.forEach(item => {
+            this.cartList && this.cartList.forEach(item => {
                 totalPrice += (item.productNum * item.salePrice)
             })
             return totalPrice
