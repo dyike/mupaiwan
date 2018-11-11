@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="home">
         <div class="banner">
 <!--             <div class="bg" ref="bg"
                 @mouseover="bgOver($refs.bg)"

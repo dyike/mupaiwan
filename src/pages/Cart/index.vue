@@ -1,5 +1,5 @@
 <template>
-    <div class="shoppng-cart">
+    <div class="shopping-cart">
         <m-header>
             <div slot="nav"></div>
         </m-header>

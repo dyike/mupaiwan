@@ -25,7 +25,7 @@
                                                 <div>
                                                     <span class="avatar" :style="{backgroundImage:'url('+userInfo.info.avatar+')'}"></span>
                                                 </div>
-                                                <p class="name">ityike</p>
+                                                <p class="name">{{userInfo.info.username}}</p>
                                             </li>
                                             <li>
                                                 <router-link to="/user/orderList">我的订单</router-link>
@@ -104,7 +104,7 @@
                     <div class="nav-sub-bg"></div>
                     <div class="nav-sub-wrapper" :class="{fixed: st}">
                         <div class="w">
-                            <ul class="nav-list">
+                            <ul class="nav-list2">
                                 <li>
                                     <router-link to="/">首页</router-link>
                                 </li>
@@ -239,7 +239,7 @@ export default {
 }
 </script>
 
-<style lang="scss" rel="stylesheet/scss">
+<style lang="scss" rel="stylesheet/scss" scoped>
     @import "../../assets/style/mixin";
 
     @import "../../assets/style/theme";
@@ -330,7 +330,7 @@ export default {
         justify-content: space-between;
         align-items: center;
         height: 100%;
-        position: relative;
+        // position: relative;
         h1 {
             height: 100%;
             display: flex;
@@ -367,8 +367,10 @@ export default {
                 content: " ";
                 @include wh(1px, 13px);
                 overflow: hidden;
-                position: absolute;
-                top: 4px;
+                // position: absolute;
+                display: flex;
+                align-items: center;
+                // top: 4px;
                 left: 0;
             }
             &.fixed {
@@ -405,6 +407,7 @@ export default {
         }
         .nav-aside {
             display: flex;
+            align-items: center;
         }
         // 用户
         .user {
@@ -822,7 +825,7 @@ export default {
             display: flex;
             justify-content: space-between;
         }
-        .nav-list {
+        .nav-list2 {
             height: 28px;
             line-height: 28px;
             display: flex;

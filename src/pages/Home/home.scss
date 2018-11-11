@@ -1,3 +1,8 @@
+.home {
+    display: flex;
+    flex-direction: column;
+}
+
 .banner, .banner span, .banner div {
     font-family: "Microsoft YaHei";
     transform: all .3s;
