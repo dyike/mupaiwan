@@ -100,9 +100,9 @@
             </header>
 
             <slot name="nav">
-                <div class="nav-sub" :class="{fixed: st}">
+                <div class="nav-sub" :class="{fixed:st}">
                     <div class="nav-sub-bg"></div>
-                    <div class="nav-sub-wrapper" :class="{fixed: st}">
+                    <div class="nav-sub-wrapper" :class="{fixed:st}">
                         <div class="w">
                             <ul class="nav-list2">
                                 <li>
@@ -211,9 +211,9 @@ export default {
         navFixed() {
             if (this.$route.path === '/goods' ||
                 this.$route.path === '/home' ||
-                this.$route.path == '/item' ||
-                this.$route.path == '/about' ||
-                this.$route.path == '/service') {
+                this.$route.path === '/item' ||
+                this.$route.path === '/about' ||
+                this.$route.path === '/service') {
                 var st = document.documentElement.scrollTop || document.body.scrollTop
                 st >= 100 ? this.st = true : this.st = false
                 // 计算小圆当前位置
